@@ -10,3 +10,16 @@ alias code="flatpak run com.visualstudio.code"	# In case "code" command isn't op
 alias gitrun='git add * && git commit -m "Commit done in a hurry" && git push'	# Urgent commit if need to leave ASAP
 alias valg="valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --track-origins=yes --trace-children=yes -s"	# Runs valgring with most used flags
 
+# Do a commit with everything added and comment as the 1st argument of command.
+# If 2nd argument is push, already push the commit.
+function gitall(){
+        git add .
+        if [ -n "$1" ]; then
+                git commit -m "$1"
+        else
+                git commit -m update
+        fi
+        if [ $2 -a $2 == "push" ]; then
+                git push
+        fi
+}
