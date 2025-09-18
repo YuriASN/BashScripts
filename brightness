@@ -1,0 +1,44 @@
+#!/bin/bash
+# brightness: Change all monitors brightness in software.
+# by hackerb9, 2019. Changed(*) by YuriASN, 2025.
+
+# Examples:  brightness 75;  brightness -5; brightness +10
+#* Maximum brightness is 100, minimum is 10.
+# Usage:
+#       brightess [n] [+n] [-n]
+#       n       An integer from 0 to 100 specifies a brightness level.
+#       +n      Increase brightness by n.
+#       -n      Decrease brightness by n.
+#               No argument shows current brightness level.
+
+b=$(xrandr --current --verbose | grep Brightness | head -1)	#* Gives result of brightness of main monitor only
+b=${b#*: }                      # Remove "Brightness: "
+b=${b#0.}                       # 0.30 --> 30
+[[ $b == "1.0" ]] && b="100"
+case $1 in
+    +*|-*)
+        b=$((b $1))             # b=b+10,  b=b-10
+        ;;
+    [0-9]*)
+        b=$1                    # b=75
+        ;;
+    *)
+        echo $b; exit
+        ;;
+esac
+
+[[ $b -lt 0 ]] && b=0
+[[ $b -gt 100 ]] && b=100
+
+if [[ $b -eq 100 ]]; then
+    b=1.0
+elif [[ $b -lt 10 ]]; then	#* Set the minimum for 0.1, avoiding 0 brightness
+    b=0.1
+else
+    b=0.$b
+fi
+
+IFS=$'\n' read -r -d '' -a outputs < <((xrandr --listmonitors | awk '{if ($4) print $4}') && printf '\0')	#* Lists only monitors that are on, in a array to work with for loop.
+for ((i=0; i<${#outputs[@]}; i++)); do
+	xrandr --output ${outputs[$i]} --brightness $b
+done
