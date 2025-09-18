@@ -1,4 +1,5 @@
-#Personal aliases that helps daily
+#!/bin/bash
+#Aliases and functions that helps daily
 
 alias desk="cd /home/$USER/Desktop"	# Goes to user's desktop
 alias 42="cd /home/$USER/Desktop/42"	# 42 school directory
@@ -15,7 +16,7 @@ function gitall(){	# Do a commit with everything added and comment as the 1st ar
 	else
 		git commit -m update
  	fi
-	if [ "$2" -eq "push" ]	# If 2nd argument is "push", already push
+	if [[$2 && $2 == "push"]]; then	# If 2nd argument is "push", already push
 		git push
 	fi
 }
