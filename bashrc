@@ -35,6 +35,6 @@ function gitall(){
 	if [ $2 -a $2 == "push" ]; then
 		git push
 	elif [ $2 ]; then
-			echo "Option $2 doesn't exist"
+			echo "error: Option $2 doesn't exist in gitall()"
 	fi
 }
