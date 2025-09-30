@@ -9,13 +9,20 @@ For that, run the command `xev | grep keysym` and press the key you intend to us
 Keep in mind that a single press can show more than one click on your terminal.
 The paramater after the comma inside of the parenthesis is what you're looking for.
 
+## Reading Default Binds
+
+In order to see what already setup you can run the command:  
+`gsettings list-recursively | grep `  
+adding whatever you're looking for. Ex. for volume:  
+`gsettings list-recursively | grep volume`.
+
 ## Removing Default key-binds
 
 Most of the time you won't be needing to do that, but if you have problem with command
 override, it might be a good idea to remove the default.  
 Use the command `xev | grep KEYCODE` changing KEYCODE with the code you discovered [before](#reading-the-key-code).
 That will give you the command that the key is binded to.  
-Ex.: `org.gnome.settings-daemon.plugins.media-keys screen-brightness-up-static ['XF86MonBrightnessUp']`.
+Ex.: `org.gnome.settings-daemon.plugins.media-keys screen-brightness-up-static ['XF86MonBrightnessUp']`.  
 To unbind the key use the command `gsettings set` with the description of the command followed by `"[]"`.  
 Ex.: `gsettings set org.gnome.settings-daemon.plugins.media-keys screen-brightness-up-static "[]"`.
 
