@@ -9,7 +9,7 @@ alias desk="cd /home/$USER/Desktop"
 alias 42="cd /home/$USER/Desktop/42"
 
 # Compiles with error and debbuging flags
-alias gcca="comp -Wall -Wextra -Werror -g"
+alias gcca="cc -Wall -Wextra -Werror -g"
 
 # Runs 42 school's norm with flag
 alias nette="norminette -R CheckForbiddenSourceHeader"
