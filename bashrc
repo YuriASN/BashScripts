@@ -23,6 +23,16 @@ alias gitrun='git add * && git commit -m "Commit done in a hurry" && git push'
 # Runs valgring with most used flags
 alias valg="valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --track-origins=yes --trace-children=yes -s"
 
+#Python aliases
+#Short for python3
+alias py="python3"
+
+#Remove python and mypy cache
+alias pycache="find . -type d \( -name '.mypy_cache' -o -name '__pycache__' \) -print -exec rm -r {} +"
+
+# Run mypy and flake8
+alias pycheck="echo 'Running mypy . ---------'; mypy .; echo 'Running flake8 .'; flake8 --count; mypycache"
+
 # Do a commit with everything added and comment as the 1st argument of command.
 # If 2nd argument is push, already push the commit.
 function gitall(){
